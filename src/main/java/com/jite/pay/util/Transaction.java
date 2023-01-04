@@ -19,7 +19,7 @@ public class Transaction {
 
     public static String schema = "PAY-SHA256-RSA2048";
 
-    public static String $host = "https://api.jitepay.com";
+    public static String host = "https://api.jitepay.com";
 
     /**
      * 商户号
@@ -69,14 +69,14 @@ public class Transaction {
         request.put("payer", trade.getPayer());
         request.put("scene_info", trade.getScene_info());
         request.put("settle_info", trade.getSettle_info());
-        String url = $host + "/v1/pay/transactions/jsapi";
+        String url = host + "/v1/pay/transactions/jsapi";
         return httpPost(url, JSON.toJSONString(request));
     }
 
     public static String queryOrder(QueryOrderByIdRequest trade) {
         TreeMap<String, String> request = new TreeMap<>();
         request.put("mchid",trade.getMchid());
-        String url = $host + "/v1/pay/transactions/out-trade-no/254635569865545626551423";//商户订单号
+        String url = host + "/v1/pay/transactions/out-trade-no/254635569865545626551423";//商户订单号
         return httpGet(url,request);
     }
 
@@ -89,14 +89,14 @@ public class Transaction {
         request.put("funds_account",refund.getFunds_account());
         request.put("amount",refund.getAmount());
         request.put("goods_detail",refund.getGoods_detail());
-        String url = $host + "/v1/refund/domestic/refunds";
+        String url = host + "/v1/refund/domestic/refunds";
         return httpPost(url, JSON.toJSONString(request));
     }
 
     public static String queryRefund(QueryRefundByIdRequst refund) {
         TreeMap<String, String> request = new TreeMap<>();
         request.put("mchid",refund.getMchid());
-        String url = $host + "/v1/refund/domestic/refunds/2546355698655456121251223";//退款单号
+        String url = host + "/v1/refund/domestic/refunds/2546355698655456121251223";//退款单号
         return httpGet(url,request);
     }
 
@@ -115,14 +115,14 @@ public class Transaction {
         request.put("bank_branch_name",payBank.getBank_branch_name());
         request.put("amount",payBank.getAmount());
         request.put("notify_url",payBank.getNotify_url());
-        String url = $host + "/v1/pay/pay_bank";
+        String url = host + "/v1/pay/pay_bank";
         return httpPost(url, JSON.toJSONString(request));
     }
 
     public static String queryPayBank(QueryBankByIdRequest payBank) {
         TreeMap<String, String> request = new TreeMap<>();
         request.put("mchid",payBank.getMchid());
-        String url = $host + "/v1/pay/query_bank/1554616546552151546551";//商户订单号
+        String url = host + "/v1/pay/query_bank/1554616546552151546551";//商户订单号
         return httpGet(url,request);
     }
 
