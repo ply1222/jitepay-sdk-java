@@ -1,0 +1,3 @@
+com\jite\pay\util\Transaction.class
+com\jite\pay\model\request\PayBankRequest.class
+com\jite\pay\service\JsapiService.class

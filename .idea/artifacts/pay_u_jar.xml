@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="pay-u:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/pay_u_jar</output-path>
+    <root id="root">
+      <element id="archive" name="pay-u.jar">
+        <element id="module-output" name="pay-u" />
+      </element>
+      <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.15" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.12.0" />
+    </root>
+  </artifact>
+</component>
