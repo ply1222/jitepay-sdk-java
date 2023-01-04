@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="pay-u">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/pay_u_jar/pay-u.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
