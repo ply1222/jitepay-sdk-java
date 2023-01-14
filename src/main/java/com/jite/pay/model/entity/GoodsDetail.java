@@ -2,55 +2,70 @@ package com.jite.pay.model.entity;
 
 import java.math.BigDecimal;
 
+/** 单品列表 **/
 public class GoodsDetail {
-    private String merchant_goods_id;//商户侧商品编码
+    /**
+     * 订单原价
+     */
+    private String merchantGoodsId;
 
-    private String goods_name;//商品名称
+    /**
+     * 商品编码
+     */
+    private String goodsId;
 
-    private BigDecimal unit_price;//商品单价
+    /**
+     * 商品名称
+     */
+    private String goodsName;
 
-    private BigDecimal refund_amount;//商品退款金额
+    /**
+     * 商品数量
+     */
+    private Integer quantity;
 
-    private Integer refund_quantity;//商品退货数量
+    /**
+     * 商品单价
+     */
+    private BigDecimal unitPrice;
 
-    public String getMerchant_goods_id() {
-        return merchant_goods_id;
+    public String getMerchantGoodsId() {
+        return merchantGoodsId;
     }
 
-    public void setMerchant_goods_id(String merchant_goods_id) {
-        this.merchant_goods_id = merchant_goods_id;
+    public void setMerchantGoodsId(String merchantGoodsId) {
+        this.merchantGoodsId = merchantGoodsId;
     }
 
-    public String getGoods_name() {
-        return goods_name;
+    public String getGoodsId() {
+        return goodsId;
     }
 
-    public void setGoods_name(String goods_name) {
-        this.goods_name = goods_name;
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
     }
 
-    public BigDecimal getUnit_price() {
-        return unit_price;
+    public String getGoodsName() {
+        return goodsName;
     }
 
-    public void setUnit_price(BigDecimal unit_price) {
-        this.unit_price = unit_price;
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
     }
 
-    public BigDecimal getRefund_amount() {
-        return refund_amount;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setRefund_amount(BigDecimal refund_amount) {
-        this.refund_amount = refund_amount;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
-    public Integer getRefund_quantity() {
-        return refund_quantity;
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setRefund_quantity(Integer refund_quantity) {
-        this.refund_quantity = refund_quantity;
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
     }
-
 }

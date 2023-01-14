@@ -1,23 +1,32 @@
 package com.jite.pay.model.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 
 import java.math.BigDecimal;
 
-//订单金额
+/** 订单金额 **/
 public class Amount {
-    private BigDecimal total;//总金额
+    /**
+     * 总金额
+     */
+    private BigDecimal total;
 
-    private BigDecimal refund;//退款金额
+    /**
+     * 货币类型
+     */
+    private String currency;
 
-    private String currency;//货币类型
+    /**
+     * 用户支付币种
+     */
+    @JSONField(name = "payer_currency")
+    private String payerCurrency;
 
-    public BigDecimal getRefund() {
-        return refund;
-    }
-
-    public void setRefund(BigDecimal refund) {
-        this.refund = refund;
-    }
+    /**
+     * 用户支付金额
+     */
+    @JSONField(name = "payer_total")
+    private BigDecimal payerTotal;
 
     public BigDecimal getTotal() {
         return total;
@@ -35,4 +44,19 @@ public class Amount {
         this.currency = currency;
     }
 
+    public String getPayerCurrency() {
+        return payerCurrency;
+    }
+
+    public void setPayerCurrency(String payerCurrency) {
+        this.payerCurrency = payerCurrency;
+    }
+
+    public BigDecimal getPayerTotal() {
+        return payerTotal;
+    }
+
+    public void setPayerTotal(BigDecimal payerTotal) {
+        this.payerTotal = payerTotal;
+    }
 }

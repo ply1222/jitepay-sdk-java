@@ -1,43 +1,78 @@
 package com.jite.pay.model.request;
 
-import com.jite.pay.model.entity.Amount;
-import com.jite.pay.model.entity.Payer;
-import com.jite.pay.model.entity.SceneInfo;
-import com.jite.pay.model.entity.SettleInfo;
+import com.jite.pay.model.entity.*;
 
-//预处理
+/** 预处理 **/
 public class PrepayRequest {
-    private String channel;//交易类型
+    /**
+     * 应用ID
+     */
+    private String appid;
 
-    private String appid;//应用ID
+    /**
+     * 商户号
+     */
+    private String mchid;
 
-    private String mchid;//商户号
+    /**
+     * 交易渠道
+     */
+    private String channel;
 
-    private String description;//商品描述
+    /**
+     * 商品描述
+     */
+    private String description;
 
-    private String out_trade_no;//商户订单号
+    /**
+     * 商户订单号
+     */
+    private String outTradeNo;
 
-    private String time_expire;//交易结束时间
+    /**
+     * 交易结束时间
+     */
+    private String timeExpire;
 
-    private String attach;//附加数据
+    /**
+     * 附加数据
+     */
+    private String attach;
 
-    private String notify_url;//通知地址
+    /**
+     * 通知地址
+     */
+    private String notifyUrl;
 
-    private Amount amount;//订单金额
+    /**
+     * 订单优惠标记
+     */
+    private String goodsTag;
 
-    private Payer payer;//支付者
+    /**
+     * 订单金额
+     */
+    private Amount amount;
 
-    private SceneInfo scene_info;//场景信息
+    /**
+     * 支付者
+     */
+    private Payer payer;
 
-    private SettleInfo settle_info;//结算信息
+    /**
+     * 优惠功能
+     */
+    private Detail detail;
 
-    public String getChannel() {
-        return channel;
-    }
+    /**
+     * 场景信息
+     */
+    private SceneInfo sceneInfo;
 
-    public void setChannel(String channel) {
-        this.channel = channel;
-    }
+    /**
+     * 结算信息
+     */
+    private SettleInfo settleInfo;
 
     public String getAppid() {
         return appid;
@@ -55,6 +90,14 @@ public class PrepayRequest {
         this.mchid = mchid;
     }
 
+    public String getChannel() {
+        return channel;
+    }
+
+    public void setChannel(String channel) {
+        this.channel = channel;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -63,20 +106,20 @@ public class PrepayRequest {
         this.description = description;
     }
 
-    public String getOut_trade_no() {
-        return out_trade_no;
+    public String getOutTradeNo() {
+        return outTradeNo;
     }
 
-    public void setOut_trade_no(String out_trade_no) {
-        this.out_trade_no = out_trade_no;
+    public void setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
     }
 
-    public String getTime_expire() {
-        return time_expire;
+    public String getTimeExpire() {
+        return timeExpire;
     }
 
-    public void setTime_expire(String time_expire) {
-        this.time_expire = time_expire;
+    public void setTimeExpire(String timeExpire) {
+        this.timeExpire = timeExpire;
     }
 
     public String getAttach() {
@@ -87,12 +130,20 @@ public class PrepayRequest {
         this.attach = attach;
     }
 
-    public String getNotify_url() {
-        return notify_url;
+    public String getNotifyUrl() {
+        return notifyUrl;
     }
 
-    public void setNotify_url(String notify_url) {
-        this.notify_url = notify_url;
+    public void setNotifyUrl(String notifyUrl) {
+        this.notifyUrl = notifyUrl;
+    }
+
+    public String getGoodsTag() {
+        return goodsTag;
+    }
+
+    public void setGoodsTag(String goodsTag) {
+        this.goodsTag = goodsTag;
     }
 
     public Amount getAmount() {
@@ -111,19 +162,27 @@ public class PrepayRequest {
         this.payer = payer;
     }
 
-    public SceneInfo getScene_info() {
-        return scene_info;
+    public Detail getDetail() {
+        return detail;
     }
 
-    public void setScene_info(SceneInfo scene_info) {
-        this.scene_info = scene_info;
+    public void setDetail(Detail detail) {
+        this.detail = detail;
     }
 
-    public SettleInfo getSettle_info() {
-        return settle_info;
+    public SceneInfo getSceneInfo() {
+        return sceneInfo;
     }
 
-    public void setSettle_info(SettleInfo settle_info) {
-        this.settle_info = settle_info;
+    public void setSceneInfo(SceneInfo sceneInfo) {
+        this.sceneInfo = sceneInfo;
+    }
+
+    public SettleInfo getSettleInfo() {
+        return settleInfo;
+    }
+
+    public void setSettleInfo(SettleInfo settleInfo) {
+        this.settleInfo = settleInfo;
     }
 }

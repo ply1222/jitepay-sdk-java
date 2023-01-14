@@ -1,9 +1,11 @@
 package com.jite.pay.model.entity;
 
-//支付者
+/** 支付者 **/
 public class Payer {
-
-    private String openid;//用户标识
+    /**
+     * 用户标识
+     */
+    private String openid;
 
     public String getOpenid() {
         return openid;

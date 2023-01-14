@@ -1,114 +1,90 @@
 package com.jite.pay.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.jite.pay.core.Config;
+import com.jite.pay.core.HttpClient;
+import com.jite.pay.model.request.CloseOrderRequest;
+import com.jite.pay.model.request.PrepayRequest;
+import com.jite.pay.model.request.QueryOrderRequest;
+import com.jite.pay.model.response.JSAPIResponse;
+import com.jite.pay.model.response.OrderResponse;
 
-import com.jite.pay.model.entity.*;
-import com.jite.pay.model.request.*;
-import com.jite.pay.util.RSAUtil;
-import com.jite.pay.util.Transaction;
-
-import java.io.IOException;
-import java.math.BigDecimal;
+import static java.util.Objects.requireNonNull;
 
 public class JsapiService {
 
+    private final HttpClient httpClient;
 
-    public static void main(String[] args) throws IOException {
-        JsapiService jsapiService = new JsapiService();
-        System.out.println(111);
-        jsapiService.queryBank();
+    private JsapiService(HttpClient httpClient) {
+        this.httpClient = httpClient;
     }
 
-    public static void pay() throws IOException {
-        PrepayRequest request = new PrepayRequest();
-        Amount amount = new Amount();
-        amount.setTotal(BigDecimal.valueOf(0.1));
-        amount.setCurrency("CNY");
-        request.setAmount(amount);
-        request.setChannel("alipay_wap");
-        request.setAppid("2");
-        request.setMchid("2");
-        request.setDescription("test");
-        request.setNotify_url("https://api.jitepay.com/v1/test");
-        request.setOut_trade_no("254635569865545626551423");
-        Payer payer = new Payer();
-        payer.setOpenid("");//os8zl4ipy1o6Qbvzzx2sOfmtKBKs
-        request.setPayer(payer);
-        SceneInfo sceneInfo = new SceneInfo();
-        sceneInfo.setPayer_client_ip("127.0.0.1");
-        request.setScene_info(sceneInfo);
-        System.out.println(Transaction.jsapi(request));
-    }
+    public static class Builder {
 
-    public static void query() throws IOException {
-        QueryOrderByIdRequest queryRequest = new QueryOrderByIdRequest();
-        queryRequest.setMchid("2");
-        System.out.println(Transaction.queryOrder(queryRequest));
-    }
+        private HttpClient httpClient;
 
-//    public static void colse() {
-//        CloseOrderRequest closeRequest = new CloseOrderRequest();
-//        closeRequest.setMchid("2");
-//    }
+        /**
+         * 设置请求配置，以该配置构造默认的httpClient，若未调用httpClient()方法，则必须调用该方法
+         *
+         * @param config 请求配置
+         * @return Builder
+         */
+        public Builder config(Config config) {
+            this.httpClient = new HttpClient(config);
+            return this;
+        }
 
-    public static void refundOrder() throws IOException {
-        RefundRequset refundRequset = new RefundRequset();
-        refundRequset.setOut_trade_no("254635569865545626551423");
-        //DateFormatUtils.format(new Date(),"yyyyMMddHHmmss")+ RandomStringUtils.randomNumeric(4)
-        refundRequset.setOut_refund_no("254635569865545626551423");
-        refundRequset.setReason("test");
-        refundRequset.setNotify_url("https://api.jitepay.com/v1/test");
-        refundRequset.setFunds_account("");
-        Amount amount = new Amount();
-        amount.setRefund(BigDecimal.valueOf(0.1));
-        amount.setCurrency("CNY");
-        amount.setTotal(BigDecimal.valueOf(0.1));
-        refundRequset.setAmount(amount);
-        GoodsDetail goodsDetail = new GoodsDetail();
-        goodsDetail.setMerchant_goods_id("");
-        goodsDetail.setGoods_name("");
-        goodsDetail.setUnit_price(BigDecimal.valueOf(0));
-        goodsDetail.setRefund_amount(BigDecimal.valueOf(0));
-        goodsDetail.setRefund_quantity(0);
-        refundRequset.setGoods_detail(goodsDetail);
-        System.out.println(Transaction.refund(refundRequset));
-    }
+        /**
+         * 设置自定义httpClient，若未调用config()，则必须调用该方法
+         *
+         * @param httpClient httpClient
+         * @return Builder
+         */
+        public Builder httpClient(HttpClient httpClient) {
+            this.httpClient = httpClient;
+            return this;
+        }
 
-    public static void queryRefundOrder() throws IOException {
-        QueryRefundByIdRequst queryRefundByIdRequst = new QueryRefundByIdRequst();
-        queryRefundByIdRequst.setMchid("2");
-        System.out.println(Transaction.queryRefund(queryRefundByIdRequst));
-    }
-
-    public static void withdraw() {
-        try {
-            PayBankRequest payBankRequest = new PayBankRequest();
-            payBankRequest.setMchid("2");
-            payBankRequest.setAppid("2");
-            payBankRequest.setOut_trade_no("1554616546552151546551");
-            payBankRequest.setDescription("test");
-            payBankRequest.setBank_no(RSAUtil.encrypt("6236691370002321599", Transaction.publicKey));
-            payBankRequest.setTrue_name(RSAUtil.encrypt("彭玲艳",Transaction.publicKey));
-            payBankRequest.setBank_code("CCB");
-            payBankRequest.setBank_name("中国建设银行");
-            payBankRequest.setBank_province("江苏省");
-            payBankRequest.setBank_city("南京市");
-            payBankRequest.setBank_branch_name("南京天元东路支行");
-            payBankRequest.setAmount("0.01");
-            payBankRequest.setNotify_url("https://api.jitepay.com/v1/test");
-            System.out.println(Transaction.payBank(payBankRequest));
-        } catch (Exception e) {
-            e.printStackTrace();
+        /**
+         * 构造服务
+         *
+         * @return JsapiService
+         */
+        public JsapiService build() {
+            return new JsapiService(httpClient);
         }
     }
 
-    public static void queryBank() throws IOException {
-        QueryBankByIdRequest queryBankByIdRequest = new QueryBankByIdRequest();
-        queryBankByIdRequest.setMchid("2");
-        System.out.println(Transaction.queryPayBank(queryBankByIdRequest));
+    /**
+     * 创建订单
+     * @param request PrepayRequest
+     * @return JSAPIResponse
+     */
+    public JSAPIResponse prepay(PrepayRequest request) {
+        String requestPath = "https://api.jitepay.com/v1/pay/transactions/jsapi";
+        String response = httpClient.httpPost(requestPath, JSONObject.toJSONString(request));
+        return JSONObject.parseObject(response, JSAPIResponse.class);
     }
 
-    public static void verifyNotify() {
-
+    /**
+     * 查询订单
+     * @param request QueryOrderRequest
+     * @return OrderResponse
+     */
+    public OrderResponse queryOrder(QueryOrderRequest request) {
+        String requestPath = "https://api.jitepay.com/v1/pay/transactions/out-trade-no/{out_trade_no}";
+        requestPath = requestPath.replace("{" + "out_trade_no" + "}", requireNonNull(request.getOutTradeNo()));
+        String response = httpClient.httpGet(requestPath);
+        return JSONObject.parseObject(response, OrderResponse.class);
     }
 
+    /**
+     * 关闭订单
+     * @param request CloseOrderRequest
+     */
+    public void closeOrder(CloseOrderRequest request) {
+        String requestPath = "https://api.jitepay.com/v1/pay/transactions/out-trade-no/{out_trade_no}/close";
+        requestPath = requestPath.replace("{" + "out_trade_no" + "}", requireNonNull(request.getOutTradeNo()));
+        httpClient.httpGet(requestPath);
+    }
 }
