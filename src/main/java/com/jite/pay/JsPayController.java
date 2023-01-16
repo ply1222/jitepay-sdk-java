@@ -43,4 +43,3 @@ public class JsPayController {
         System.out.println(JSONObject.toJSONString(service.query(request)));
     }
 }
-
