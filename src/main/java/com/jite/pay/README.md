@@ -217,27 +217,26 @@ public class Transfer {
                 .build();
 
         TransferService service = new TransferService.Builder().config(config).build();
-
+        
         TransferRequest request = new TransferRequest();
         request.setMchid("2");
         request.setAppid("2");
         request.setOutTradeNo(RandomUtil.numeric(18));
-        request.setIdentity("623052067001019****");
-        request.setIdentityType("BANKCARD_ACCOUNT");
-        request.setName("王*");
-
-        Bankcard account = new Bankcard();
-        account.setAccountType(2);
-        account.setBankName("中国农业银行");
-        account.setBankBranchName("农行蚌埠淮河支行");
-        account.setBankProvince("安徽省");
-        account.setBankCity("蚌埠市");
-        request.setBankcard(account);
-
-        request.setDescription("test");
+        request.setRemark("test");
         request.setAmount(new BigDecimal("0.1"));
         request.setNotifyUrl("https://api.jitepay.com/v1/test");
 
+        Payee payee = new Payee();
+        payee.setIdentity("623052067001019****");
+        payee.setIdentityType("BANKCARD_ACCOUNT");
+        payee.setName("王*");
+        payee.setAccountType(2);
+        payee.setBankName("中国农业银行");
+        payee.setBankBranchName("农行蚌埠淮河支行");
+        payee.setBankProvince("安徽省");
+        payee.setBankCity("蚌埠市");
+        request.setPayee(payee);
+        
         System.out.println(JSONObject.toJSONString(service.create(request)));
     }
 }

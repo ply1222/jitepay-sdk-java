@@ -1,6 +1,9 @@
 package com.jite.pay.model.request;
 
-import com.jite.pay.model.entity.Bankcard;
+import com.jite.pay.model.entity.Payee;
+import com.jite.pay.model.entity.UserInfo;
+
+import java.math.BigDecimal;
 
 /** 转账 */
 public class TransferRequest {
@@ -20,49 +23,34 @@ public class TransferRequest {
     private String outTradeNo;
 
     /**
-     * 收款方账号
-     */
-    private String identity;
-
-    /**
-     * 收款方账号类型: ALIPAY_ACCOUNT, WECHAT_ACCOUNT, BANKCARD_ACCOUNT
-     */
-    private String identityType;
-
-    /**
-     * 收款方用户名
-     */
-    private String name;
-
-    /**
-     * 收款方手机号码
-     */
-    private String mobile;
-
-    /**
-     * 收款方身份证号码
-     */
-    private String idCardNum;
-
-    /**
-     * 银行信息
-     */
-    private Bankcard bankcard;
-
-    /**
      * 付款金额
      */
-    private String amount;
+    private BigDecimal amount;
 
     /**
-     * 付款说明
+     * 转账备注
      */
-    private String description;
+    private String remark;
 
     /**
      * 回调地址
      */
     private String notifyUrl;
+
+    /**
+     * 收款方信息
+     */
+    private Payee payee;
+
+    /**
+     * 支付超时时间
+     */
+    private String timeExpire;
+
+    /**
+     * 用户信息
+     */
+    private UserInfo userInfo;
 
     public String getAppid() {
         return appid;
@@ -88,68 +76,20 @@ public class TransferRequest {
         this.outTradeNo = outTradeNo;
     }
 
-    public String getIdentity() {
-        return identity;
-    }
-
-    public void setIdentity(String identity) {
-        this.identity = identity;
-    }
-
-    public String getIdentityType() {
-        return identityType;
-    }
-
-    public void setIdentityType(String identityType) {
-        this.identityType = identityType;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getIdCardNum() {
-        return idCardNum;
-    }
-
-    public void setIdCardNum(String idCardNum) {
-        this.idCardNum = idCardNum;
-    }
-
-    public Bankcard getBankcard() {
-        return bankcard;
-    }
-
-    public void setBankcard(Bankcard bankcard) {
-        this.bankcard = bankcard;
-    }
-
-    public String getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
-    public String getDescription() {
-        return description;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public String getNotifyUrl() {
@@ -158,5 +98,29 @@ public class TransferRequest {
 
     public void setNotifyUrl(String notifyUrl) {
         this.notifyUrl = notifyUrl;
+    }
+
+    public Payee getPayee() {
+        return payee;
+    }
+
+    public void setPayee(Payee payee) {
+        this.payee = payee;
+    }
+
+    public String getTimeExpire() {
+        return timeExpire;
+    }
+
+    public void setTimeExpire(String timeExpire) {
+        this.timeExpire = timeExpire;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 }

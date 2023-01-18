@@ -5,6 +5,7 @@ import com.jite.pay.core.Config;
 import com.jite.pay.core.HttpClient;
 import com.jite.pay.core.RSAUtil;
 import com.jite.pay.exception.ValidationException;
+import com.jite.pay.model.entity.Payee;
 import com.jite.pay.model.request.QueryTransferOrderRequest;
 import com.jite.pay.model.request.TransferRequest;
 import com.jite.pay.model.response.TransferResponse;
@@ -73,44 +74,50 @@ public class TransferService {
         String requestPath = "https://api.jitepay.com/v1/transfer/promotion/transfer";
         // 订单号
         if (request.getOutTradeNo() == null || request.getOutTradeNo().isEmpty()) {
-            throw new ValidationException("OutTradeNo cannot be empty");
+            throw new ValidationException("'outTradeNo' must not be null");
         }
 
+        // 收款人信息
+        Payee payee = request.getPayee();
+        if (payee == null) {
+            throw new ValidationException("'payee' must not be null");
+        }
         // 类型
-        if (request.getIdentityType() == null || request.getIdentityType().isEmpty()) {
-            throw new ValidationException("IdentityType cannot be empty");
+        if (payee.getIdentityType() == null || payee.getIdentityType().isEmpty()) {
+            throw new ValidationException("'identityType' must not be null");
         }
 
         // 账号
-        if (request.getIdentity() == null || request.getIdentity().isEmpty()) {
-            throw new ValidationException("Identity cannot be empty");
+        if (payee.getIdentity() == null || payee.getIdentity().isEmpty()) {
+            throw new ValidationException("'identity' must not be null");
         }
-        request.setIdentity(signer.encrypt(request.getIdentity()));
+        payee.setIdentity(signer.encrypt(payee.getIdentity()));
 
         // 真实姓名
-        if (request.getName() == null || request.getName().isEmpty()) {
-            throw new ValidationException("Name cannot be empty");
+        if (payee.getName() == null || payee.getName().isEmpty()) {
+            throw new ValidationException("'name' must not be null");
         }
-        request.setName(signer.encrypt(request.getName()));
+        payee.setName(signer.encrypt(payee.getName()));
 
         // 手机号码
-        if (request.getMobile() != null && !request.getMobile().isEmpty()) {
-            request.setMobile(signer.encrypt(request.getMobile()));
+        if (payee.getMobile() != null && !payee.getMobile().isEmpty()) {
+            payee.setMobile(signer.encrypt(payee.getMobile()));
         }
 
         // 身份证号码
-        if (request.getIdCardNum() != null && !request.getIdCardNum().isEmpty()) {
-            request.setIdCardNum(signer.encrypt(request.getIdCardNum()));
+        if (payee.getIdCardNum() != null && !payee.getIdCardNum().isEmpty()) {
+            payee.setIdCardNum(signer.encrypt(payee.getIdCardNum()));
         }
+        request.setPayee(payee);
 
         // 金额
         if (request.getAmount() == null) {
-            throw new ValidationException("Amount cannot be empty");
+            throw new ValidationException("'amount' must not be null");
         }
 
         // 描述
-        if (request.getDescription() == null || request.getDescription().isEmpty()) {
-            throw new ValidationException("Description cannot be empty");
+        if (request.getRemark() == null || request.getRemark().isEmpty()) {
+            throw new ValidationException("'remark' must not be null");
         }
 
         String response = httpClient.httpPost(requestPath, JSONObject.toJSONString(request));
@@ -124,7 +131,7 @@ public class TransferService {
      * @return TransferResponse
      */
     public TransferResponse query(QueryTransferOrderRequest request) {
-        String requestPath = "https://api.jitepay.com/v1/transfer/promotion/transfer/{out_trade_no}";
+        String requestPath = "http://192.168.1.100:8181/v1/transfer/promotion/transfer/{out_trade_no}";
         requestPath = requestPath.replace("{" + "out_trade_no" + "}", requireNonNull(request.getOutTradeNo()));
         String response = httpClient.httpGet(requestPath);
         return JSONObject.parseObject(response, TransferResponse.class);

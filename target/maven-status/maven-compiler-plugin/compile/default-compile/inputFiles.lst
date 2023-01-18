@@ -11,7 +11,6 @@ D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\model\entity\Notification
 D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\service\NotificationService.java
 D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\service\AppService.java
 D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\exception\DecryptionException.java
-D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\model\entity\Bankcard.java
 D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\model\request\PrepayRequest.java
 D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\model\response\RefundOrderResponse.java
 D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\core\AESUtil.java
@@ -26,9 +25,11 @@ D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\core\HttpClient.java
 D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\model\request\QueryTransferOrderRequest.java
 D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\model\entity\Resource.java
 D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\service\JsapiService.java
+D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\model\entity\Payee.java
 D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\model\response\H5Response.java
 D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\model\response\APPResponse.java
 D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\model\request\CloseOrderRequest.java
+D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\model\entity\UserInfo.java
 D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\core\Config.java
 D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\service\H5Service.java
 D:\Project\jitepay-sdk-java\src\main\java\com\jite\pay\model\entity\Detail.java

@@ -1,7 +1,7 @@
 package com.jite.pay.model.response;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.jite.pay.model.entity.Bankcard;
+import com.jite.pay.model.entity.Payee;
 
 /**
  * 转账
@@ -11,6 +11,11 @@ public class TransferResponse {
      * 商户号
      */
     private Long mchid;
+
+    /**
+     * 商户号
+     */
+    private Long appid;
 
     /**
      * 付款单号
@@ -25,36 +30,9 @@ public class TransferResponse {
     private String outTradeNo;
 
     /**
-     * 收款方账号
+     * 收款方
      */
-    private String identity;
-
-    /**
-     * 收款方账号类型: ALIPAY_ACCOUNT, WECHAT_ACCOUNT, BANKCARD_ACCOUNT
-     */
-    @JSONField(name = "identity_type")
-    private String identityType;
-
-    /**
-     * 收款方用户名
-     */
-    private String name;
-
-    /**
-     * 收款方手机号码
-     */
-    private String mobile;
-
-    /**
-     * 收款方身份证号码
-     */
-    @JSONField(name = "id_card_num")
-    private String idCardNum;
-
-    /**
-     * 银行信息
-     */
-    private Bankcard bankcard;
+    private Payee payee;
 
     /**
      * 代付金额
@@ -64,7 +42,7 @@ public class TransferResponse {
     /**
      * 付款说明
      */
-    private String description;
+    private String remark;
 
     /**
      * 状态
@@ -91,6 +69,14 @@ public class TransferResponse {
         this.mchid = mchid;
     }
 
+    public Long getAppid() {
+        return appid;
+    }
+
+    public void setAppid(Long appid) {
+        this.appid = appid;
+    }
+
     public String getPaymentNo() {
         return paymentNo;
     }
@@ -107,52 +93,12 @@ public class TransferResponse {
         this.outTradeNo = outTradeNo;
     }
 
-    public String getIdentity() {
-        return identity;
+    public Payee getPayee() {
+        return payee;
     }
 
-    public void setIdentity(String identity) {
-        this.identity = identity;
-    }
-
-    public String getIdentityType() {
-        return identityType;
-    }
-
-    public void setIdentityType(String identityType) {
-        this.identityType = identityType;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getIdCardNum() {
-        return idCardNum;
-    }
-
-    public void setIdCardNum(String idCardNum) {
-        this.idCardNum = idCardNum;
-    }
-
-    public Bankcard getBankcard() {
-        return bankcard;
-    }
-
-    public void setBankcard(Bankcard bankcard) {
-        this.bankcard = bankcard;
+    public void setPayee(Payee payee) {
+        this.payee = payee;
     }
 
     public String getAmount() {
@@ -163,12 +109,12 @@ public class TransferResponse {
         this.amount = amount;
     }
 
-    public String getDescription() {
-        return description;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public String getStatus() {
