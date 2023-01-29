@@ -131,7 +131,7 @@ public class TransferService {
      * @return TransferResponse
      */
     public TransferResponse query(QueryTransferOrderRequest request) {
-        String requestPath = "http://192.168.1.100:8181/v1/transfer/promotion/transfer/{out_trade_no}";
+        String requestPath = "https://api.jitepay.com/v1/transfer/promotion/transfer/{out_trade_no}";
         requestPath = requestPath.replace("{" + "out_trade_no" + "}", requireNonNull(request.getOutTradeNo()));
         String response = httpClient.httpGet(requestPath);
         return JSONObject.parseObject(response, TransferResponse.class);

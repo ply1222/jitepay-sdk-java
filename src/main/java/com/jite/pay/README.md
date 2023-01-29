@@ -53,12 +53,7 @@ public class QuickStart {
         Detail detail = new Detail();
         detail.setCostPrice(new BigDecimal("0.1"));
         request.setDetail(detail);
-
-        // 支付者
-        //Payer payer = new Payer();
-        //payer.setOpenid("2088722402304925");//2088022632420470 2088722402304925
-        //request.setPayer(payer);
-
+        
         // 场景
         SceneInfo sceneInfo = new SceneInfo();
         sceneInfo.setPayerClientIp("183.165.107.131");
@@ -277,11 +272,36 @@ public class Notification {
     @PostMapping("/test")
     public void test(HttpServletRequest request, HttpServletResponse response) {
         try {
-            //通知报文
-            Config config = new Config.Builder().publicKey("").apiKey("").build();
-            NotificationService service = new NotificationService(config);
-            var body = service.parse(request);
-            if (body != null || !body.isEmpty()) {
+            //获取请求信息
+            String nonce = request.getHeader("Pay-Nonce");
+            String signature = request.getHeader("Pay-Signature");
+            String timestamp = request.getHeader("Pay-Timestamp");
+            String serialNumber = request.getHeader("Pay-Serial");
+            String requestBody = Request.getResponseBody(request);
+
+            // 构造 RequestParam
+            NotificationParam requestParam = new NotificationParam.Builder()
+                    .serialNumber(serialNumber)
+                    .nonce(nonce)
+                    .signature(signature)
+                    .timestamp(timestamp)
+                    .body(requestBody)
+                    .build();
+
+            // 初始化配置
+            Config config = new Config.Builder()
+                    .merchantId(merchantId)
+                    .privateKey(privateKey)
+                    .serialNumber(serialNumber)
+                    .apiKey(apiKey)
+                    .build();
+
+            // 初始化 NotificationParser
+            NotificationParser service = new NotificationParser(config);
+            
+            // 验签并解密报文
+            JSONObject decrypt = service.parse(requestParam, JSONObject.class);
+            if (decrypt != null) {
                 //通知应答
                 logger.info(body.toJSONString());
 

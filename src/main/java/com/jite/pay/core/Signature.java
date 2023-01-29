@@ -123,15 +123,12 @@ public class Signature {
     /**
      * 签名验证
      *
-     * @param timestamp    应答时间戳 Pay-Timestamp
-     * @param nonce        应答随机串 Pay-Nonce
-     * @param responseBody 应答主体
-     * @param signature    应答签名
+     * @param message   验签名串
+     * @param signature 应答签名
      * @return
      */
-    public Boolean verifySignature(String timestamp, String nonce, String responseBody, String signature) {
-        String data = buildNotify(timestamp, nonce, responseBody);
-        return signer.verifySign(data, signature);
+    public Boolean verify(String message, String signature) {
+        return signer.sign(message).equals(signature);
     }
 
     /**

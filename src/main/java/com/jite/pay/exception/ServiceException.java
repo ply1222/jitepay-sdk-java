@@ -8,7 +8,7 @@ public class ServiceException extends PayException {
 
     private final int httpStatusCode;
     private final String responseBody;
-    private int errorCode;
+    private String errorCode;
     private String errorMessage;
 
     /**
@@ -19,11 +19,11 @@ public class ServiceException extends PayException {
      */
     public ServiceException(int httpStatusCode, String responseBody) {
         super(String.format("Wrong HttpStatusCode[%d]%nhttResponseBody[%.1024s]", httpStatusCode, responseBody));
-        this.httpStatusCode = errorCode;
+        this.httpStatusCode = httpStatusCode;
         this.responseBody = responseBody;
         if (responseBody != null && !responseBody.isEmpty()) {
             JSONObject jsonObject = JSONObject.parseObject(responseBody);
-            this.errorCode = jsonObject.getInteger("code");
+            this.errorCode = jsonObject.getString("code");
             this.errorMessage = jsonObject.getString("msg");
         }
     }
@@ -55,7 +55,7 @@ public class ServiceException extends PayException {
         return responseBody;
     }
 
-    public Integer getErrorCode() {
+    public String getErrorCode() {
         return errorCode;
     }
 
