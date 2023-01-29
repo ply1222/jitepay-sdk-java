@@ -1,9 +1,0 @@
-com\jite\pay\model\entity\Payer.class
-com\jite\pay\model\request\CloseOrderRequest.class
-com\jite\pay\model\entity\SettleInfo.class
-com\jite\pay\model\entity\Amount.class
-com\jite\pay\model\request\PrepayRequest.class
-com\jite\pay\JsPayController.class
-com\jite\pay\model\entity\SceneInfo.class
-com\jite\pay\model\entity\GoodsDetail.class
-com\jite\pay\service\JsapiService.class
